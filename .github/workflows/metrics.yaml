@@ -1,0 +1,23 @@
+name: Metrics
+on:
+  # Updated daily
+  schedule: [{cron: "0 0 * * *"}]
+  # Or manually
+  workflow_dispatch:
+  # Or when pushing to main
+  push: {branches: ["main"]}
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          user: tmc
+          template: classic
+          base: header, activity, community, repositories, metadata
+          plugin_followup: yes
+          plugin_followup_sections: repositories
+          repositories: 1000
+          repositories_forks: yes
